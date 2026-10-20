@@ -55,7 +55,7 @@ class AboutPage extends StatelessWidget {
           Column(
             children: [
               Text(
-                'fqapp',
+                '小胡短剧APP',
                 textAlign: TextAlign.center,
                 style: theme.textTheme.titleLarge?.copyWith(
                   fontWeight: FontWeight.bold,
@@ -109,7 +109,7 @@ class AboutPage extends StatelessWidget {
           const SizedBox(height: 28),
           Center(
             child: Text(
-              '仅限个人学习研究使用\n请遵守相关法律法规',
+              '仅限个人使用\n请遵守相关法律法规',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 12, color: outline, height: 1.5),
             ),
