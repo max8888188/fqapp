@@ -92,7 +92,7 @@ class MinePage extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '书友',
+                      '小胡书友',
                       style: TextStyle(
                         fontSize: 17,
                         fontWeight: FontWeight.bold,
