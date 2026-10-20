@@ -62,7 +62,7 @@ class HomeHero extends StatelessWidget {
                   mainAxisSize: MainAxisSize.min,
                   children: [
                     Text(
-                      'fqapp',
+                      '小胡短剧',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
@@ -75,7 +75,7 @@ class HomeHero extends StatelessWidget {
                     ),
                     const SizedBox(height: 2),
                     Text(
-                      '好故事，不止一种',
+                      '欢迎使用小胡短剧',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(
