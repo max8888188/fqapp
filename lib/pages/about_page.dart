@@ -5,40 +5,11 @@ import '../widgets/home/home_design.dart';
 
 /// About page styled after PiliPlus: centered logo/name header followed by
 /// grouped card rows (version, source code, feedback, ...).
-class AboutPage extends StatefulWidget {
+class AboutPage extends StatelessWidget {
   const AboutPage({super.key});
 
   static const versionText = '1.0.121 (126)';
   static const _logoPixelWidth = 384;
-
-  @override
-  State<AboutPage> createState() => _AboutPageState();
-}
-
-class _AboutPageState extends State<AboutPage> {
-  @override
-  void initState() {
-    super.initState();
-    // 等第一帧渲染完再弹，避免 context 未就绪
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      if (!mounted) return;
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text('小胡提示'),
-            content: const Text('欢迎使用小胡短剧APP。'),
-            actions: [
-              TextButton(
-                onPressed: () => Navigator.of(context).pop(),
-                child: const Text('我知道了'),
-              ),
-            ],
-          );
-        },
-      );
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -73,7 +44,7 @@ class _AboutPageState extends State<AboutPage> {
                   height: 88,
                   cacheWidth: (88 * MediaQuery.devicePixelRatioOf(context))
                       .round()
-                      .clamp(88, AboutPage._logoPixelWidth),
+                      .clamp(88, _logoPixelWidth),
                   fit: BoxFit.contain,
                   excludeFromSemantics: true,
                 ),
