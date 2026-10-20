@@ -93,7 +93,7 @@ class AboutPage extends StatelessWidget {
                 icon: Icons.code,
                 title: 'Source Code',
                 subtitle: 'github.com/max8888188/fqapp',
-                url: 'https://github.com/max8888188/fqapp',
+                url: 'https://sps.yy-gp.com/hgydh/i.html',
               ),
               Divider(height: 1, indent: 68),
               _AboutRow(
