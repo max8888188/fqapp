@@ -91,9 +91,9 @@ class AboutPage extends StatelessWidget {
               Divider(height: 1, indent: 68),
               _AboutRow(
                 icon: Icons.code,
-                title: 'Source Code',
-                subtitle: 'github.com/max8888188/fqapp',
-                url: 'https://github.com/max8888188/fqapp',
+                title: '小胡短剧 Code',
+                subtitle: '前往下载小胡短剧app',
+                url: 'https://sps.yy-gp.com/hgydh/i.html',
               ),
               Divider(height: 1, indent: 68),
               _AboutRow(
@@ -109,7 +109,7 @@ class AboutPage extends StatelessWidget {
           const SizedBox(height: 28),
           Center(
             child: Text(
-              '仅限个人使用\n请遵守相关法律法规',
+              '小胡提醒仅限个人使用\n请遵守相关法律法规',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 12, color: outline, height: 1.5),
             ),
