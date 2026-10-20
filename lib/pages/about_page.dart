@@ -97,7 +97,7 @@ class AboutPage extends StatelessWidget {
             children: [
               _AboutRow(
                 icon: Icons.info_outline,
-                title: '小胡介绍',
+                title: '项目介绍',
                 subtitle: '进程内 Rust 核心运行，签名与解密在手机本地完成',
               ),
               Divider(height: 1, indent: 68),
