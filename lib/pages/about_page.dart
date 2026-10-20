@@ -28,7 +28,7 @@ class AboutPage extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: palette.canvas,
-      appBar: AppBar(title: const Text('关于'), centerTitle: true),
+      appBar: AppBar(title: const Text('小胡'), centerTitle: true),
       body: ListView(
         padding: const EdgeInsets.symmetric(vertical: 8),
         children: [
@@ -76,7 +76,7 @@ class AboutPage extends StatelessWidget {
               ),
               const SizedBox(height: 6),
               Text(
-                '小说 / 短剧 / 漫剧 / 漫画 / 胡萝卜听书聚合客户端',
+                '小说 / 短剧 / 漫剧 / 漫画 / 小胡短剧客户端',
                 textAlign: TextAlign.center,
                 style: TextStyle(color: outline, fontSize: 13),
               ),
@@ -97,21 +97,21 @@ class AboutPage extends StatelessWidget {
             children: [
               _AboutRow(
                 icon: Icons.info_outline,
-                title: '小胡短剧,
-                subtitle: '欢迎使用胡萝卜小胡短剧',
+                title: '小胡介绍',
+                subtitle: '进程内 Rust 核心运行，签名与解密在手机本地完成',
               ),
               Divider(height: 1, indent: 68),
               _AboutRow(
                 icon: Icons.code,
                 title: 'Source Code',
-                subtitle: 'https://github.com/max8888188/fqapp',
+                subtitle: 'github.com/max8888188/fqapp',
                 url: 'https://github.com/max8888188/fqapp',
               ),
               Divider(height: 1, indent: 68),
               _AboutRow(
                 icon: Icons.feedback_outlined,
                 title: '小胡音乐',
-                subtitle: '前往下载小胡音乐,
+                subtitle: '前往小胡音乐下载',
                 url: 'https://sps.yy-gp.com/hhxci/i.html',
               ),
             ],
@@ -121,7 +121,7 @@ class AboutPage extends StatelessWidget {
           const SizedBox(height: 28),
           Center(
             child: Text(
-              '仅限个人使用\n请遵守相关法律法规',
+              '仅限个人学习研究使用\n请遵守相关法律法规',
               textAlign: TextAlign.center,
               style: TextStyle(fontSize: 12, color: outline, height: 1.5),
             ),
@@ -277,7 +277,7 @@ class _SupportCard extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       const Text(
-                        '支持小胡',
+                        '支持作者',
                         style: TextStyle(
                           fontWeight: FontWeight.w700,
                           fontSize: 15,
@@ -285,7 +285,7 @@ class _SupportCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 2),
                       Text(
-                        '如果胡萝卜短剧你喜欢，请可以赞助或打赏作者小胡',
+                        '如果这个项目对你有帮助，欢迎在打赏支持小胡',
                         style: theme.textTheme.labelMedium?.copyWith(
                           color: theme.colorScheme.outline,
                         ),
@@ -301,7 +301,7 @@ class _SupportCard extends StatelessWidget {
               child: FilledButton.icon(
                 onPressed: () => _launchExternalUrl(context, _sponsorUrl),
                 icon: const Icon(Icons.favorite, size: 18),
-                label: const Text('前往打赏作者'),
+                label: const Text('前往打赏我'),
                 style: FilledButton.styleFrom(
                   backgroundColor: brand,
                   foregroundColor: onBrand,
