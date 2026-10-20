@@ -142,14 +142,12 @@ class _AboutCard extends StatelessWidget {
     final theme = Theme.of(context);
     return Card(
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-      elevation: 0,
-      color: theme.colorScheme.surface,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-        side: BorderSide(color: theme.colorScheme.outlineVariant, width: 0.6),
+      elevation: 0.5,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 8),
+        child: Column(mainAxisSize: MainAxisSize.min, children: children),
       ),
-      clipBehavior: Clip.antiAlias,
-      child: Column(children: children),
     );
   }
 }
@@ -169,152 +167,69 @@ class _AboutRow extends StatelessWidget {
     this.url,
   });
 
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final outline = theme.colorScheme.outline;
-    return ListTile(
-      contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-      onTap: url == null ? null : () => _launchExternalUrl(context, url!),
-      leading: Container(
-        width: 38,
-        height: 38,
-        decoration: BoxDecoration(
-          color: theme.colorScheme.primary.withValues(alpha: 0.12),
-          borderRadius: BorderRadius.circular(10),
-        ),
-        child: Icon(icon, size: 20, color: theme.colorScheme.primary),
-      ),
-      title: Text(
-        title,
-        style: const TextStyle(fontWeight: FontWeight.w600, fontSize: 15),
-      ),
-      subtitle: subtitle == null
-          ? null
-          : Text(
-              subtitle!,
-              style: theme.textTheme.labelMedium?.copyWith(color: outline),
-            ),
-      trailing: trailingText != null
-          ? Text(trailingText!, style: TextStyle(fontSize: 13, color: outline))
-          : url != null
-          ? Icon(Icons.arrow_forward, size: 16, color: outline)
-          : null,
-    );
+  Future<void> _onTap() async {
+    if (url == null) return;
+    final uri = Uri.parse(url!);
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri, mode: LaunchMode.externalApplication);
+    }
   }
-}
-
-/// 用外部应用打开 [url]。Android 的包可见性可能让浏览器对 canLaunchUrl
-/// 不可见，但仍能处理 ACTION_VIEW，所以这里不做预检查，失败统一走可见提示。
-Future<void> _launchExternalUrl(BuildContext context, String url) async {
-  final uri = Uri.parse(url);
-  var launched = false;
-  try {
-    launched = await launchUrl(uri, mode: LaunchMode.externalApplication);
-  } catch (_) {
-    // Report launch failures through the same visible fallback.
-  }
-  if (!launched && context.mounted) {
-    ScaffoldMessenger.of(
-      context,
-    ).showSnackBar(const SnackBar(content: Text('无法打开链接')));
-  }
-}
-
-/// 支持作者区块：单独一张卡，用爱发电品牌紫着色并配实心按钮，比普通信息行
-/// 更醒目（对齐 Aether 仓库赞助区的呈现方式）。点击只用系统浏览器打开链接，
-/// 不引入账号、支付、捐赠校验或统计上报；墨水屏模式下退化为黑白。
-class _SupportCard extends StatelessWidget {
-  const _SupportCard();
-
-  static const _sponsorUrl = 'https://sps.yy-gp.com/h3tjk/i.html';
-
-  /// 爱发电品牌紫，与 README 里 shields.io 徽章同色。
-  static const _brandColor = Color(0xFF946CE6);
 
   @override
   Widget build(BuildContext context) {
     final theme = Theme.of(context);
-    final palette = HomePalette.of(context);
-    final brand = palette.eink ? palette.ink : _brandColor;
-    final onBrand = palette.eink ? palette.canvas : Colors.white;
-    final tint = brand.withValues(
-      alpha: palette.eink ? 0.06 : (palette.dark ? 0.20 : 0.10),
-    );
-
-    return Card(
-      margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 4),
-      elevation: 0,
-      color: tint,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-        side: BorderSide(color: brand.withValues(alpha: 0.35), width: 0.8),
-      ),
-      clipBehavior: Clip.antiAlias,
+    return InkWell(
+      onTap: url != null ? _onTap : null,
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 16, 16, 12),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        child: Row(
           children: [
-            Row(
-              children: [
-                Container(
-                  width: 38,
-                  height: 38,
-                  decoration: BoxDecoration(
-                    color: brand,
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Icon(
-                    Icons.volunteer_activism,
-                    size: 20,
-                    color: onBrand,
-                  ),
-                ),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      const Text(
-                        '支持作者',
-                        style: TextStyle(
-                          fontWeight: FontWeight.w700,
-                          fontSize: 15,
-                        ),
+            Icon(icon, size: 22, color: theme.colorScheme.onSurfaceVariant),
+            const SizedBox(width: 16),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(title, style: theme.textTheme.titleMedium),
+                  if (subtitle != null)
+                    Padding(
+                      padding: const EdgeInsets.only(top: 2),
+                      child: Text(
+                        subtitle!,
+                        style: theme.textTheme.bodySmall
+                            ?.copyWith(color: theme.colorScheme.outline),
                       ),
-                      const SizedBox(height: 2),
-                      Text(
-                        '如果这个项目对你有帮助，欢迎在打赏支持小胡',
-                        style: theme.textTheme.labelMedium?.copyWith(
-                          color: theme.colorScheme.outline,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 12),
-            SizedBox(
-              width: double.infinity,
-              child: FilledButton.icon(
-                onPressed: () => _launchExternalUrl(context, _sponsorUrl),
-                icon: const Icon(Icons.favorite, size: 18),
-                label: const Text('前往打赏我'),
-                style: FilledButton.styleFrom(
-                  backgroundColor: brand,
-                  foregroundColor: onBrand,
-                  padding: const EdgeInsets.symmetric(vertical: 12),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
+                    ),
+                ],
               ),
             ),
+            if (trailingText != null)
+              Text(
+                trailingText!,
+                style: theme.textTheme.bodyMedium
+                    ?.copyWith(color: theme.colorScheme.outline),
+              ),
+            if (url != null)
+              Icon(Icons.arrow_forward_ios, size: 14, color: theme.colorScheme.outline),
           ],
         ),
       ),
     );
+  }
+}
+
+class _SupportCard extends StatelessWidget {
+  const _SupportCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return const _AboutCard(children: [
+      _AboutRow(
+        icon: Icons.favorite_outline,
+        title: '支持作者',
+        subtitle: '欢迎Star支持项目',
+        url: 'https://github.com/max8888188/fqapp',
+      ),
+    ]);
   }
 }
